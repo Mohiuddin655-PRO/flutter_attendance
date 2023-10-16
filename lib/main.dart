@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_attendence/dashboard/dashboard.dart';
 import 'package:flutter_attendence/sign_in/auth_sign_in.dart';
 import 'package:flutter_attendence/user.dart';
 import 'package:flutter_attendence/utils/api_helpers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'dashboard/dashboard2.dart';
 
 late SharedPreferences preferences;
 
@@ -27,10 +28,11 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xff4b55bc)),
         useMaterial3: true,
       ),
       home: Builder(builder: (context) {
+        //return const Dashboard();
         final user = User.fromPreferences(preferences);
         if (user.accessToken != null) {
           return FutureBuilder(

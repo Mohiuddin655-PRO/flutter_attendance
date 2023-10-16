@@ -148,7 +148,7 @@ class _DashboardState extends State<Dashboard> {
             return child;
           },
         ),
-        (route) => false,
+            (route) => false,
       );
     } else {
       Navigator.push(

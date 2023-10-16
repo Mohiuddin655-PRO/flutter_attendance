@@ -72,65 +72,65 @@ class _AuthSignInState extends State<AuthSignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(
-            horizontal: 32,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                "Work Start",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
+      body: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(
+          horizontal: 32,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              "Work Start",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(
+              height: 54,
+            ),
+            EmailEditField(
+              initialValue: "example@gmail.com",
+              controller: etEmail,
+              hintText: "Enter your official email",
+            ),
+            const SizedBox(
+              height: 24,
+            ),
+            PasswordEditField(
+              initialValue: "123456",
+              controller: etPassword,
+              hintText: "Enter the password",
+            ),
+            const SizedBox(
+              height: 24,
+            ),
+            PrimaryButton(
+              text: "START NOW",
+              loading: loading,
+              onPressed: _onLoginCheck,
+            ),
+            const SizedBox(
+              height: 24,
+            ),
+            SecondaryButton(
+              text: "Create a new employee account",
+              onPressed: () => _next(const AuthSignUp()),
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  onPressed: () {},
+                  child: const Text("Forgot password"),
                 ),
-              ),
-              const SizedBox(
-                height: 54,
-              ),
-              EmailEditField(
-                controller: etEmail,
-                hintText: "Enter your official email",
-              ),
-              const SizedBox(
-                height: 24,
-              ),
-              PasswordEditField(
-                controller: etPassword,
-                hintText: "Enter the password",
-              ),
-              const SizedBox(
-                height: 24,
-              ),
-              PrimaryButton(
-                text: "Login",
-                loading: loading,
-                onPressed: _onLoginCheck,
-              ),
-              const SizedBox(
-                height: 24,
-              ),
-              SecondaryButton(
-                text: "Create a new employee account",
-                onPressed: () => _next(const AuthSignUp()),
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextButton(
-                    onPressed: () {},
-                    child: const Text("Forgot password"),
-                  ),
-                ],
-              ),
-            ],
-          ),
+              ],
+            ),
+          ],
         ),
       ),
     );
@@ -169,9 +169,13 @@ class _AuthSignInState extends State<AuthSignIn> {
       );
       if (data.isRight()) {
         _next(const Dashboard(), true);
+      } else {
+        setState(() => loading = false);
       }
+    } else {
+      messengers.showSnackBar("Something wrong, please try again!");
+      setState(() => loading = false);
     }
-    setState(() => loading = false);
   }
 
   void _next(Widget child, [bool clearMode = false]) {
